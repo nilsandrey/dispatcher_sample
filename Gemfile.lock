@@ -72,6 +72,8 @@ GEM
       activesupport (>= 5.0)
     i18n (1.8.11)
       concurrent-ruby (~> 1.0)
+    jbuilder (2.11.3)
+      activesupport (>= 5.0.0)
     listen (3.7.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -85,6 +87,7 @@ GEM
     mini_mime (1.1.2)
     minitest (5.14.4)
     msgpack (1.4.2)
+    mysql2 (0.5.3)
     nio4r (2.5.8)
     nokogiri (1.12.5-x86_64-linux)
       racc (~> 1.4)
@@ -112,6 +115,9 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
+    rails-healthcheck (1.4.0)
+      actionpack
+      railties
     rails-html-sanitizer (1.4.2)
       loofah (~> 2.3)
     railties (6.1.4.1)
@@ -132,7 +138,6 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.4.2)
     thor (1.1.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
@@ -147,11 +152,13 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
+  jbuilder (~> 2.7)
   listen (~> 3.3)
+  mysql2 (~> 0.5.3)
   puma (~> 5.0)
   rails (~> 6.1.4, >= 6.1.4.1)
+  rails-healthcheck (~> 1.4)
   spring
-  sqlite3 (~> 1.4)
   tzinfo-data
 
 RUBY VERSION
