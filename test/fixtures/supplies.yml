@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+#one:
+#  count: 1
+#  medication: medication1
+#  cargo: cargo_a
+
+#two:
+#  count: 3
+#  medication: medication2
+  #  cargo: cargo_b

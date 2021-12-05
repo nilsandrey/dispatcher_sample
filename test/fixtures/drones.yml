@@ -3,13 +3,20 @@
 first_drone:
   serial_number: 2RICRPCUA43G5D
   model: :lightweight
-  weight_limit: 9.99
+  weight_limit: 500
   battery: 100
-  state: idle_state
+  state: idle
 
 second_drone:
-  serial_number: 2VBAGM9KAVQU54
+  serial_number: 1VBAGM9KAVQU54
   model: :middleweight
-  weight_limit: 9.99
+  weight_limit: 600
   battery: 50
-  state: idle_state
+  state: idle
+
+third_drone:
+  serial_number: 3VBAGM9KAVQ234
+  model: :middleweight
+  weight_limit: 600
+  battery: 50
+  state: delivering

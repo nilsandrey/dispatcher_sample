@@ -1,7 +1,8 @@
 class DronesController < ApplicationController
   # Before action define parameters...
-  before_action :set_drone, only: %i[destroy check_battery ready go]
+  before_action :set_drone, only: %i[destroy check_battery ready go load show cancel]
   before_action :set_filter, only: [:index]
+  before_action :set_load_params, only: [:load]
 
   def index
     @drones = nil
@@ -13,6 +14,8 @@ class DronesController < ApplicationController
     render_entities(@drones) if @drones
   end
 
+  ##
+  # Registering a drone
   def create
     @drone = Drone.new(translated_drone_params)
     if @drone.save
@@ -26,7 +29,7 @@ class DronesController < ApplicationController
     if @drone.destroy
       render json: {}, status: :no_content # https://jsonapi.org/format/#crud-deleting-responses-204
     else
-      render_error(:unprocessable_entity, StandardError.new('Can\'t delete drone'), @drone.errors)
+      render_error(:unprocessable_entity, StandardError.new('Can\'t unregister drone'), @drone.errors)
     end
   end
 
@@ -52,6 +55,20 @@ class DronesController < ApplicationController
     end
   end
 
+  def load
+    protect_record_not_saved do
+      @drone.load(@medication, @count)
+    end
+  end
+
+  def show; end
+
+  def cancel
+    protect_record_not_saved do
+      @drone.cancel!
+    end
+  end
+
   private
 
   def set_drone
@@ -72,5 +89,14 @@ class DronesController < ApplicationController
 
   def set_filter
     @filter = params[:filter]
+  end
+
+  def set_load_params
+    # Receive parameter cargo with this structure:
+    # {"medication": "DDDFDFSDF", "count": "1"}
+    protect_parameter_missing do
+      @medication = params[:medication]
+      @count = params[:count]
+    end
   end
 end

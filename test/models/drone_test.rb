@@ -28,4 +28,14 @@ class DroneTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::RecordNotSaved) { d.loading_state! }
     assert_equal(d.errors.messages.length, 1, 'Error message not recorded')
   end
+
+  test "Shouldn't add medication when drone is not in loading or idle state" do
+    d = drones(:third_drone)
+    assert_raises(StandardError) { d.load("XBAY6Q68_32YHIU57DK6", 2) }
+  end
+
+  test "Should add medication to idle drone" do
+    d = drones(:first_drone)
+    d.load("XBAY6Q68_32YHIU57DK6", 2)
+  end
 end

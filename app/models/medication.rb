@@ -8,5 +8,4 @@ class Medication < ApplicationRecord
   validates :code, presence: true
   validates :code, uniqueness: true
   validates_format_of :code, with: /\A[A-Z0-9_]+\z/
-
 end

@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_05_101031) do
+ActiveRecord::Schema.define(version: 2021_12_05_190412) do
+
+  create_table "cargos", charset: "utf8mb4", force: :cascade do |t|
+    t.boolean "active", default: true
+    t.bigint "drone_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["drone_id"], name: "index_cargos_on_drone_id"
+  end
 
   create_table "drones", charset: "utf8mb4", force: :cascade do |t|
     t.string "serial_number", limit: 100
@@ -36,4 +44,15 @@ ActiveRecord::Schema.define(version: 2021_12_05_101031) do
     t.index ["name"], name: "index_medications_on_name", unique: true
   end
 
+  create_table "supplies", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "count"
+    t.bigint "medication_id", null: false
+    t.bigint "cargo_id", null: false
+    t.index ["cargo_id"], name: "index_supplies_on_cargo_id"
+    t.index ["medication_id"], name: "index_supplies_on_medication_id"
+  end
+
+  add_foreign_key "cargos", "drones"
+  add_foreign_key "supplies", "cargos"
+  add_foreign_key "supplies", "medications"
 end

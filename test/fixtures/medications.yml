@@ -17,3 +17,9 @@ medication3:
   weight: 25
   code: QQPF211I_0XW73AFNGH6
   image: https://cdn.shopify.com/s/files/1/0266/2521/2488/products/51HhlcmR-WL._AC_SL1000_388x.jpg?v=1610842863
+
+medication4:
+  name: Heavy Kit
+  weight: 600
+  code: YSAAASS8_32YHIU57DK6
+  image: https://img.medscapestatic.com/pi/features/drugdirectory/octupdate/GSO02602.jpg

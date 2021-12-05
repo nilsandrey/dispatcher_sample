@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+#cargo_a:
+#  active: true
+#  drone: first_drone
+
+#cargo_b:
+#  active: false
+#  drone: second_drone

@@ -1,8 +1,10 @@
 # README
 
-> Still working in progress....
-
 > **Problem background and design assumptions are described in [the wiki]([Home · nilsandrey/dispatcher_sample Wiki · GitHub](https://github.com/nilsandrey/dispatcher_sample/wiki)).**
+
+> **See the api-docs on deployment of the API by browsing to the endpoint/doc, like in <http://localhost:3000/doc>.**
+
+> Working in progress....
 
 Things you may want to cover:
 
@@ -77,3 +79,5 @@ docker-compose build --build-arg RAILS_ENV=development
 ## How to run the test suite
 
 `docker-compose run web rails`
+
+
