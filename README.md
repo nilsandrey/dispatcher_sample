@@ -2,11 +2,14 @@
 
 > Still working in progress....
 
+> **Problem background and design assumptions are described in [the wiki]([Home · nilsandrey/dispatcher_sample Wiki · GitHub](https://github.com/nilsandrey/dispatcher_sample/wiki)).**
+
 Things you may want to cover:
 
 * Architecture
 
 * System dependencies
+  
   - Docker
 
 * Configuration
@@ -32,6 +35,7 @@ Things you may want to cover:
 ## Configuration
 
 * Create .env files for configuring the different services that will run in containers following this steps: (format is ...) TODO: Refence required
+  
   * Create a `db.env` file in the root directory. 
   
   * Configure variables according to ...  TODO: Refence required to the wiki for db.env
@@ -39,7 +43,7 @@ Things you may want to cover:
   * Create a `web.env` file in the root directory. 
   
   * Configure variables according to ...  TODO: Refence required to the wiki for db.env
-  
+
 > ***NOTICE:** .env files shouldn't be included in the repo. If included is just for simplifying the demo setup.* 
 
 ## Setup
@@ -49,7 +53,7 @@ This is a simple Docker setup for use in developing the API. It includes the ser
 1. Install Docker
 
 2. Create a Docker network
-`docker network create musalasoft-drones`
+   `docker network create musalasoft-drones`
 
 3. Build the containers
 
@@ -68,9 +72,8 @@ docker-compose build --build-arg RAILS_ENV=development
 ## Database creation
 
 * `docker-compose run web rails db:create` Create the database.
-* `docker-compose run web rails db:seed` Load initial data (if any).
+* `docker-compose run web rails db:seed` Load initial data.
 
 ## How to run the test suite
 
 `docker-compose run web rails`
-
