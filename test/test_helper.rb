@@ -10,4 +10,9 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def random_string(length)
+    s = ''
+    1.upto(length) {|i| s += [*('A'..'Z'),*('0'..'9')].sample }
+    s
+  end
 end

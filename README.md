@@ -68,8 +68,9 @@ docker-compose build --build-arg RAILS_ENV=development
 ## Database creation
 
 * `docker-compose run web rails db:create` Create the database.
-* `docker-compose run web rails db:seed` Load initial data.
+* `docker-compose run web rails db:seed` Load initial data (if any).
 
+## How to run the test suite
 
+`docker-compose run web rails`
 
-...
