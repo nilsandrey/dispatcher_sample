@@ -5,11 +5,11 @@ first_drone:
   model: :lightweigth
   weight_limit: 9.99
   battery: 100
-  state: 1
+  state: idle_state
 
 second_drone:
   serial_number: 2VBAGM9KAVQU54
   model: 1
   weight_limit: 9.99
   battery: 50
-  state: 1
+  state: idle_state
