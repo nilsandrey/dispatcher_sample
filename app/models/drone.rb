@@ -3,6 +3,7 @@ class Drone < ApplicationRecord
   validates :serial_number, length: { maximum: 100 }
   validates :serial_number, uniqueness: true
   validates :battery, numericality: { in: 0..100 }
+  validates :model, presence: true
 
   before_update :check_on_update
 

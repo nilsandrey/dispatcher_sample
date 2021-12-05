@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_05_080212) do
+ActiveRecord::Schema.define(version: 2021_12_05_101031) do
 
   create_table "drones", charset: "utf8mb4", force: :cascade do |t|
     t.string "serial_number", limit: 100
     t.integer "model"
     t.decimal "weight_limit", precision: 10
-    t.integer "battery", limit: 1
-    t.integer "state"
+    t.integer "battery", limit: 1, default: 100
+    t.integer "state", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["model"], name: "index_drones_on_model"
