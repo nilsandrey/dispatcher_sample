@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_04_090130) do
+ActiveRecord::Schema.define(version: 2021_12_05_080212) do
 
   create_table "drones", charset: "utf8mb4", force: :cascade do |t|
     t.string "serial_number", limit: 100
@@ -23,6 +23,17 @@ ActiveRecord::Schema.define(version: 2021_12_04_090130) do
     t.index ["model"], name: "index_drones_on_model"
     t.index ["serial_number"], name: "index_drones_on_serial_number", unique: true
     t.index ["state"], name: "index_drones_on_state"
+  end
+
+  create_table "medications", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name", null: false
+    t.decimal "weight", precision: 10, null: false
+    t.string "code", null: false
+    t.string "image"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["code"], name: "index_medications_on_code", unique: true
+    t.index ["name"], name: "index_medications_on_name", unique: true
   end
 
 end

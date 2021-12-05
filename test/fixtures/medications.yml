@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+medication1:
+  name: colestipol hcl
+  weight: 500
+  code: XBAY6Q68_32YHIU57DK6
+  image: https://img.medscapestatic.com/pi/features/drugdirectory/octupdate/GSO02602.jpg
+
+medication2:
+  name: dicyclomine tablet
+  weight: 20
+  code: FIZH8A0F7PDRG38Q55YJ
+  image: https://dailymed.nlm.nih.gov/dailymed/image.cfm?name=dicyclomine-hydrochloride-tablets-usp-2.jpg&id=518508
+
+medication3:
+  name: meclizine HCI
+  weight: 25
+  code: QQPF211I_0XW73AFNGH6
+  image: https://cdn.shopify.com/s/files/1/0266/2521/2488/products/51HhlcmR-WL._AC_SL1000_388x.jpg?v=1610842863
