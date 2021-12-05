@@ -1,15 +1,15 @@
 class DronesController < ApplicationController
   # Before action define parameters...
-  before_action :set_drone, only: [:destroy, :check_battery]
+  before_action :set_drone, only: %i[destroy check_battery ready go]
   before_action :set_filter, only: [:index]
 
   def index
     @drones = nil
     @drones = Drone.all unless @filter
-    @drones = Drone.idle_state if @filter == "idle"
-    @drones = Drone.loading_state if @filter == "loading"
+    @drones = Drone.idle_state if @filter == 'idle'
+    @drones = Drone.loading_state if @filter == 'loading'
 
-    render_error(:bad_request, StandardError.new("Bad request")) unless @drones
+    render_error(:bad_request, StandardError.new('Bad request')) unless @drones
     render_entities(@drones) if @drones
   end
 
@@ -18,7 +18,7 @@ class DronesController < ApplicationController
     if @drone.save
       render_entities(@drone)
     else
-      render_error(:unprocessable_entity, StandardError.new("Invalid parameters"), @drone.errors)
+      render_error(:unprocessable_entity, StandardError.new('Invalid parameters'), @drone.errors)
     end
   end
 
@@ -32,16 +32,30 @@ class DronesController < ApplicationController
 
   def check_battery
     render json: {
-      'type': "Drone",
+      'type': 'Drone',
       'id': @drone.id,
       battery_level: @drone.battery,
     }, statuts: :ok
   end
 
+  def ready
+    protect_record_not_saved do
+      @drone.loaded_state!
+      render_entities(@drone)
+    end
+  end
+
+  def go
+    protect_record_not_saved do
+      @drone.delivering_state!
+      render_entities(@drone)
+    end
+  end
+
   private
 
   def set_drone
-    protect_not_found { @drone = Drone.find(params[:id]) }
+    protect_not_found {@drone = Drone.find(params[:id])}
   end
 
   def drone_params
