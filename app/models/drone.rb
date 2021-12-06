@@ -23,22 +23,25 @@ class Drone < ApplicationRecord
   # per drone at a time.
   #
   def active_cargo
-    cargos.active.first
+    cargos.actived.first
   end
 
   ##
   # Add to the active cargo the specified count of the specified medication. If the cargo is
   # not created (idle drone), then create it and add this as the first item.
   #
-  # @param [Hash] medication with this form <tt>{ 'medication': 'DDDFDFSDF', 'count': 2 }</tt>.
-  # @raise <tt>:abort</tt> on invalid state.
-  # @raise <tt>ActiveRecord::RecordNotSaved</tt> on invalid parameters.
+  # @param [Medication] medication.
   #
-  def load(medication_code, count)
-    return initialize_cargoes(medication_code, count) if idle_state?
-    return continue_cargoes(medication_code, count) if loading_state?
+  def load(medication, count)
+    throw_error("Drone can't load cargo while in state #{state}") unless idle_state? || loading_state?
 
-    throw_error("Drone can't load cargo while in state #{state}")
+    ActiveRecord::Base.transaction do
+      cargo = cargos.create if idle_state?
+      cargo = active_cargo if loading_state?
+      cargo.load(medication, count)
+
+      throw_error(overload_message(cargo.weight)) if cargo.weight > weight_limit
+    end    
   end
 
   def cancel!
@@ -52,44 +55,8 @@ class Drone < ApplicationRecord
 
   private
 
-  def add_supply(cargo, medication, count)
-    supply = cargo.supplies.new
-    supply.medication = medication_obj
-    supply.count = count
-    supply.save
-    cargo.save
-  end
-
-  ##
-  # Create a new <tt>Cargo</tt> to set as the active for this drone.
-  # @param [Hash] medication with this form <tt>{ 'medication': 'DDDFDFSDF', 'count': 2 }</tt>.
-  #
-  def initialize_cargoes(medication_code, count)
-    throw_error('Wrong call to initialize cargos; there\'s one active.') if active_cargo
-
-    loading_state!
-    medication_obj = locate_medication_or_abort(medication_code)
-    add_supply(cargos.new, medication_obj, count)
-  end
-
-  ##
-  # Continue adding supplies to the current <tt>active_cargo</tt>.
-  #
-  def continue_cargoes(medication_code, count)
-    medication_obj = locate_medication_or_abort(medication_code)
-    add_supply(active_cargo, medication_obj, count)
-  end
-
-  ##
-  # Try to location medication defined by code. Call <tt>abort_with_error</tt> if not.
-  #
-  # @param [String] code Should match one <tt>Medication.code</tt>.
-  # @return [Medication]
-  #
-  def locate_medication_or_abort(code)
-    medication = Medication.find_by_code(code)
-    throw_error("Medication with id `#{code}` not found") unless medication
-    medication
+  def overload_message(weight)
+    "drone from being loaded with more weight (#{weight}) that it can carry #{weight_limit}"
   end
 
   ##
@@ -108,6 +75,7 @@ class Drone < ApplicationRecord
 
     if delivered_state? && active_cargo
       active_cargo.active = false
+      active_cargo.save!
     end
   end
 end

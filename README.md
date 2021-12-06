@@ -35,7 +35,7 @@ This is a simple Docker setup for use in developing the API. It includes the ser
 docker-compose build --build-arg RAILS_ENV=development
 ```
 
-3. Start the containers in [detached mode](https://docs.docker.com/compose/reference/up/)
+3. Start the containers in [detached mode ↗](https://docs.docker.com/compose/reference/up/)
 
 ```bash
 `docker-compose up -d`
