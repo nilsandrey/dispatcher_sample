@@ -1,8 +1,8 @@
 class DronesController < ApplicationController
   # Before action define parameters...
-  before_action :set_drone, only: %i[destroy check_battery ready go load show cancel]
+  before_action :set_drone, only: %i[destroy check_battery ready go load_medication show cancel]
   before_action :set_filter, only: [:index]
-  before_action :set_load_params, only: [:load]
+  before_action :set_load_params, only: [:load_medication]
 
   def index
     @drones = nil
@@ -55,13 +55,29 @@ class DronesController < ApplicationController
     end
   end
 
-  def load
-    @drone.load(@medication, @count)
+  def load_medication
+    @drone.load_supply(@medication, @count)
   rescue StandardError => e
     render_error(:unprocessable_entity, e)
   end
 
-  def show; end
+  def show
+    @result =  { "drone": @drone, "supplies": [] }
+    if @drone.active_cargo && @drone.active_cargo.supplies
+      @drone.active_cargo.supplies.each do |supply|
+        @result[:supplies] << {
+          "count": supply.count,
+          "medication": {
+            "code": supply.medication.code,
+            "name": supply.medication.name,
+            "weigth": supply.medication.weight,
+            "image": supply.medication.image
+          }
+        }
+      end
+    end
+    render_entities(@result)
+  end
 
   def cancel
     protect_record_not_saved do

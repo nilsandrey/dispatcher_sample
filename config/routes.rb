@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       get 'check_battery' # Check battery level for a drone
       patch 'ready' # Drone set to LOADED state
       patch 'go' # Drone set to DELIVERING state
-      post 'load' # Loading a drone with medication items
+      post 'load_medication' # Loading a drone with medication items
       post 'cancel'
     end
   end
