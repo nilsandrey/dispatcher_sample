@@ -1,7 +1,6 @@
 class Cargo < ApplicationRecord
   belongs_to :drone
   has_many :supplies, dependent: :destroy
-  has_many :medications, through: :supplies
 
   scope :actived, -> { where(:active => true) }
 
@@ -9,7 +8,10 @@ class Cargo < ApplicationRecord
     supplies.includes(:medication).sum(:weight)
   end
 
-  def load(medication, count)
-    supplies.create(medication: medication, count: count)
+  def load_supply(medication, count)
+    supply = supplies.new
+    supply.medication = medication
+    supply.count = count
+    supply.save
   end
 end

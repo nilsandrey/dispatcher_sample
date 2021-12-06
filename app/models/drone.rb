@@ -32,14 +32,16 @@ class Drone < ApplicationRecord
   #
   # @param [Medication] medication.
   #
-  def load(medication, count)
+  def load_supply(medication, count)
     throw_error("Drone can't load cargo while in state #{state}") unless idle_state? || loading_state?
 
     ActiveRecord::Base.transaction do
-      cargo = cargos.create if idle_state?
+      if idle_state?
+        loading_state! 
+        cargo = cargos.create
+      end
       cargo = active_cargo if loading_state?
-      cargo.load(medication, count)
-
+      cargo.load_supply(medication, count)
       throw_error(overload_message(cargo.weight)) if cargo.weight > weight_limit
     end    
   end
