@@ -1,32 +1,8 @@
 # README
 
-> **Problem background and design assumptions are described in [the wiki]([Home · nilsandrey/dispatcher_sample Wiki · GitHub](https://github.com/nilsandrey/dispatcher_sample/wiki)).**
+> **Problem background and design assumptions are described in [the wiki](https://github.com/nilsandrey/dispatcher_sample/wiki).**
 
 > **See the api-docs on deployment of the API by browsing to the endpoint/doc, like in <http://localhost:3000/doc>.**
-
-> Working in progress....
-
-Things you may want to cover:
-
-* Architecture
-
-* System dependencies
-  
-  - Docker
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
 
 ## Architecture
 
@@ -36,17 +12,13 @@ Things you may want to cover:
 
 ## Configuration
 
-* Create .env files for configuring the different services that will run in containers following this steps: (format is ...) TODO: Refence required
+* Create/modify [.env files ↗](https://docs.docker.com/compose/env-file/) for configuring the different services that will run in containers following this steps: 
   
-  * Create a `db.env` file in the root directory. 
+  * Create a [`db.env`](https://github.com/nilsandrey/dispatcher_sample/blob/main/db.env) file in the root directory with the variables used to build the data base container.
   
-  * Configure variables according to ...  TODO: Refence required to the wiki for db.env
-  
-  * Create a `web.env` file in the root directory. 
-  
-  * Configure variables according to ...  TODO: Refence required to the wiki for db.env
+  * Create a [`web.env`](https://github.com/nilsandrey/dispatcher_sample/blob/main/web.env) file in the root directory with the variables used to build the web api container.
 
-> ***NOTICE:** .env files shouldn't be included in the repo. If included is just for simplifying the demo setup.* 
+> ***NOTICE:** .env files shouldn't be included in a real producciton ready repo. If included is just for simplifying the demo setup.* 
 
 ## Setup
 
@@ -80,4 +52,8 @@ docker-compose build --build-arg RAILS_ENV=development
 
 `docker-compose run web rails`
 
+## Using the API
 
+Instructions describing  all the API methods and its parameters are defined in [public/doc](https://github.com/nilsandrey/dispatcher_sample/tree/main/public/doc) and can be browsed upon deployment in the url `/doc`.
+
+![](https://github.com/nilsandrey/dispatcher_sample/wiki/images/api-docs-sample.png)
