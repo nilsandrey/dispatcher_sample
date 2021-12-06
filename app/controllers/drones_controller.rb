@@ -56,9 +56,9 @@ class DronesController < ApplicationController
   end
 
   def load
-    protect_record_not_saved do
-      @drone.load(@medication, @count)
-    end
+    @drone.load(@medication, @count)
+  rescue StandardError => e
+    render_error(:unprocessable_entity, e)
   end
 
   def show; end
@@ -95,7 +95,7 @@ class DronesController < ApplicationController
     # Receive parameter cargo with this structure:
     # {"medication": "DDDFDFSDF", "count": "1"}
     protect_parameter_missing do
-      @medication = params[:medication]
+      protect_not_found { @medication = Medication.find_by_code(params[:medication]) } # Translate code to medication
       @count = params[:count]
     end
   end
